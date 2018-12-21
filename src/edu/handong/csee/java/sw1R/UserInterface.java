@@ -14,11 +14,8 @@ public class UserInterface {
 	private int MINE;
 	Game NewGame;
 	//지뢰 이미지
-	//지뢰 아이콘의 경로를 받아서
-	//해당 경로상으로 아이콘을 만들고
-	//그 아이콘의 이미지를 사이즈를 조절해서 저장하고
 	Image MineImage = new ImageIcon("img/mine.png").getImage().getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
-	//그렇게 저장한 이미지를 이미지 아이콘으로 저장.
+	//저장한 이미지를 이미지 아이콘으로 저장.
 	ImageIcon MineIcon = new ImageIcon(MineImage);
 	private int SCORE;
 	private int elapsedTime;
@@ -61,17 +58,19 @@ public class UserInterface {
 		//행의 정보를 받아오기 위한 텍스트 필드를 배치하기 위해 패널과 라벨 생성.
 		JPanel rowPane = new JPanel();
 		JLabel rowLabel = new JLabel("Row: ");
-		JTextField row = new JTextField("10");
+		JSpinner row = new JSpinner(new SpinnerNumberModel(10, 1, 30, 1));
+		//JTextField row = new JTextField("10");
 		
 		//열의 정보를 받아오기 위한 텍스트 필드를 배치하기 위한 패널과 라벨 생성.
 		JPanel colPane = new JPanel();
 		JLabel colLabel = new JLabel("Column: ");
-		JTextField col = new JTextField("10");
-		
+		JSpinner col = new JSpinner(new SpinnerNumberModel(10, 1, 30, 1));
+		//JTextField col = new JTextField("10");
 		//지뢰의 갯수를 받아오기 위한 텍스트 필드를 배치하기 위한 패널과 라벨 생성.
 		JPanel minePane = new JPanel();
 		JLabel mineLabel = new JLabel("Number of Mines: ");
-		JTextField mine = new JTextField("10");//각 행, 열, 지뢰 갯수의 초기값은 10으로 설정.
+		JSpinner mine = new JSpinner(new SpinnerNumberModel(10, 1, 999, 1));
+		//JTextField mine = new JTextField("10");//각 행, 열, 지뢰 갯수의 초기값은 10으로 설정.
 		GridLayout two = new GridLayout(1,2);
 		mainContainer.setLayout(new GridLayout(1,3));
 		rowPane.setLayout(two);
@@ -102,9 +101,9 @@ public class UserInterface {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				ROW = Integer.parseInt(row.getText());
-				COL = Integer.parseInt(col.getText());
-				MINE = Integer.parseInt(mine.getText());
+				ROW = (int)row.getValue();
+				COL = (int)col.getValue();
+				MINE = (int)mine.getValue();
 				if(MINE > ROW * COL) new RestateWindow();
 				else {
 					NewGame.Start(ROW, COL, MINE);
