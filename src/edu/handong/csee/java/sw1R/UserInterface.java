@@ -130,6 +130,7 @@ public class UserInterface {
 	
 	//게임을 실제 창으로 띄우기 위한 클래스의 메인 함수.
 	public void Screen() {
+		ongoing = false;
 		JFrame frame = new JFrame("Minesweeper");//프레임이름을 주고 프레임 인스턴스화
 		JPanel MainContainer = new JPanel();
 		frame.setLocation(200,100);//프레임 초기 위치 지정.
@@ -242,17 +243,22 @@ public class UserInterface {
 											if((i != 0 || j != 0) && NewGame.map.PosValid(posX + i, posY + j)) {
 												//해당 버튼의 주변 버튼에 대해 클릭.
 												if(!NewGame.map.getButton(posX + i, posY + j).isMarked() && NewGame.map.getButton(posX + i, posY + j).isMine) {
+													//System.out.println("GameOver called by Chord");//debug line
 													GameOver(Buttons, MainContainer, ActionLabel);
 												}
-												else if(!NewGame.map.getButton(posX + i, posY + j).isMarked() && !NewGame.map.getButton(posX + i, posY  + j).isMine) {
+												else if(!NewGame.map.getButton(posX + i, posY + j).isMarked() && !NewGame.map.getButton(posX + i, posY  + j).isMine && !NewGame.map.getButton(posX + i, posY  + j).isChecked()) {
 													NewGame.Cascade(posX+i, posY+j);
 													JButton OtherButton = (JButton)Buttons[posX+i][posY+j].getComponent(0);
 													OtherButton.setText(""+ClickedButton.getCount());
 													OtherButton.setBackground(Color.LIGHT_GRAY);
 													//점수가 10점 증가
+													//System.out.println("Score increased to "+SCORE+" by Chord"); //debug line
 													Scorer(10, IngameCaller);
 													//게임을 시작, 타이머가 작동중이지 않다면 타이머를 작동.
-													if(!ongoing) beginTimer();
+													if(!ongoing) {
+														//System.out.println("Timer began by Chord");//debug line
+														beginTimer();
+													}
 													ActionLabel.setText("[Chord]");
 													CheckMap(Buttons, IngameCaller);
 												}
@@ -396,7 +402,6 @@ public class UserInterface {
 					MineButton.setIcon(MineIcon);
 					MineButton.setBackground(Color.RED);
 				}
-				Buttons[i][j].getComponent(0).setEnabled(false);
 			}
 		}
 		setPanelEnabled(mainContainer, false);
