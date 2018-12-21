@@ -149,7 +149,6 @@ public class UserInterface {
 				// TODO Auto-generated method stub
 				if(ongoing) setTimeLabel((int)System.currentTimeMillis()/1000);
 			}
-			
 		};
 		elapsedTime.schedule(updateTimer, 0, 500);
 		
