@@ -13,7 +13,12 @@ public class UserInterface {
 	private int COL;
 	private int MINE;
 	Game NewGame;
+	//지뢰 이미지
+	//지뢰 아이콘의 경로를 받아서
+	//해당 경로상으로 아이콘을 만들고
+	//그 아이콘의 이미지를 사이즈를 조절해서 저장하고
 	Image MineImage = new ImageIcon("img/mine.png").getImage().getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH);
+	//그렇게 저장한 이미지를 이미지 아이콘으로 저장.
 	ImageIcon MineIcon = new ImageIcon(MineImage);
 	private int SCORE;
 	private int elapsedTime;
